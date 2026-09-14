@@ -3,32 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS | The Ultimate Minecraft Community</title>
+    <title>NEXUS | صفحه اصلی</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css" rel="stylesheet">
     <style>
         :root {
             --primary: #00f2fe;
-            --secondary: #ff3366;
-            --bale: #00c37b;
+            --accent: #ff3366;
             --bg: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
+            --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
         }
-
         * { box-sizing: border-box; }
-
         body {
             background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 51, 102, 0.08) 0%, transparent 40%);
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.1) 0%, transparent 60%);
             color: #d1d5db;
             font-family: 'Vazirmatn', sans-serif;
             margin: 0;
             line-height: 1.8;
-            overflow-x: hidden;
         }
-
         nav {
             display: flex;
             justify-content: center;
@@ -39,7 +32,6 @@
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
-
         nav a {
             color: #9ca3af;
             text-decoration: none;
@@ -48,194 +40,126 @@
             transition: 0.3s;
             font-size: 0.95rem;
         }
-
         nav a.active, nav a:hover {
             color: var(--primary);
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
         }
-
-        .header {
+        .hero {
             text-align: center;
             padding: 70px 20px 40px;
         }
-
-        .badge {
-            display: inline-block;
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 6px 20px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .header h1 {
-            font-size: clamp(2.5rem, 7vw, 4.5rem);
-            margin: 0;
+        .hero h1 {
+            font-size: 3rem;
             color: #fff;
-            letter-spacing: 3px;
-            text-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+            margin: 0 0 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
         }
-
-        .header p {
+        .hero p {
             color: #9ca3af;
-            font-size: 1.15rem;
-            max-width: 680px;
-            margin: 15px auto 0;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
-
         .container {
-            max-width: 950px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px 20px 80px;
         }
-
         .card {
-            background: var(--glass);
+            background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(12px);
-            transition: 0.3s;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
         }
-
-        .card:hover {
-            border-color: rgba(0, 242, 254, 0.3);
-        }
-
-        h2 {
+        .card h2 {
             color: #fff;
             margin-top: 0;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .tag-banner {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.06), rgba(255, 51, 102, 0.06));
-            border: 1px dashed var(--primary);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .tag-banner code {
-            font-size: 1.3rem;
-            color: var(--primary);
-            font-weight: bold;
-            direction: ltr;
-            display: inline-block;
-        }
-
-        /* Contact & Community Section */
-        .channel-card {
-            background: linear-gradient(135deg, rgba(0, 195, 123, 0.12), rgba(0, 242, 254, 0.05));
-            border: 1px solid rgba(0, 195, 123, 0.4);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 30px;
-            backdrop-filter: blur(12px);
-        }
-
-        .channel-card h3 {
-            color: #fff;
-            margin: 0 0 10px;
-            font-size: 1.6rem;
-        }
-
-        .channel-card p {
-            color: #cbd5e1;
-            margin: 0 0 20px;
-        }
-
-        .btn-bale {
-            display: inline-flex;
-            align-items: center;
             gap: 10px;
-            background: var(--bale);
-            color: #032b18;
-            font-weight: 800;
-            padding: 12px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 1.05rem;
-            transition: 0.3s;
-            box-shadow: 0 0 20px rgba(0, 195, 123, 0.3);
         }
-
-        .btn-bale:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 195, 123, 0.6);
+        .tag-badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            direction: ltr;
+        }
+        .bale-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
             color: #000;
+            font-weight: 700;
+            padding: 12px 26px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 14px;
+            transition: 0.3s;
         }
-
-        .leaders-grid {
+        .bale-btn:hover {
+            box-shadow: 0 0 18px rgba(0, 242, 254, 0.5);
+            transform: translateY(-2px);
+        }
+        .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 18px;
-            margin-top: 20px;
+            margin-top: 18px;
         }
-
-        .leader-card {
+        .team-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 20px;
             text-align: center;
             transition: 0.3s;
         }
-
-        .leader-card:hover {
-            transform: translateY(-3px);
+        .team-card:hover {
             border-color: var(--primary);
+            transform: translateY(-3px);
         }
-
-        .leader-role {
-            font-size: 0.8rem;
+        .team-role {
+            font-size: 0.75rem;
+            color: var(--primary);
             letter-spacing: 1px;
-            font-weight: bold;
-            color: var(--secondary);
+            font-weight: 700;
             margin-bottom: 6px;
         }
-
-        .leader-name {
-            font-size: 1.25rem;
-            color: #fff;
+        .team-name {
+            font-size: 1.15rem;
             font-weight: 700;
+            color: #fff;
             margin-bottom: 12px;
             direction: ltr;
         }
-
-        .leader-link {
+        .team-link {
             display: inline-block;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            padding: 6px 18px;
-            border-radius: 8px;
+            color: #9ca3af;
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 600;
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 6px;
             transition: 0.2s;
         }
-
-        .leader-link:hover {
-            background: var(--primary);
-            color: #000;
+        .team-link:hover {
+            color: #fff;
+            border-color: var(--primary);
+            background: rgba(0, 242, 254, 0.1);
         }
-
         footer {
             text-align: center;
             padding: 40px 20px;
             color: #666;
-            font-size: 0.85rem;
             border-top: 1px solid var(--border);
         }
     </style>
@@ -245,60 +169,54 @@
     <nav>
         <a href="index.html" class="active">خانه</a>
         <a href="rules.html">قوانین</a>
-        <a href="events.html">تست و رویدادها</a>
-        <a href="#community">ارتباطات و عضویت</a>
+        <a href="events.html">رویدادها</a>
+        <a href="tickets.html">سامانه تیکت</a>
     </nav>
 
-    <header class="header">
-        <span class="badge">❖ NEXUS NETWORK ❖</span>
-        <h1>Where Legends are Forged</h1>
-        <p>کامیونیتی اختصاصی و حرفه‌ای ماینکرفت (PvP & Bedwars). مرجع رقابت‌های سالم، کاستوم‌های هفتگی و اسکوادهای حرفه‌ای تیرکس و دونات.</p>
+    <header class="hero">
+        <h1>❖ NEXUS NETWORK ❖</h1>
+        <p>جامعه حرفه‌ای گیمینگ، بدوارز و پی‌وی‌پی</p>
     </header>
 
     <main class="container">
-
-        <div class="card">
+        
+        <!-- فلسفه نکسوس -->
+        <section class="card">
             <h2>⚔️ فلسفه نکسوس (Quality Over Quantity)</h2>
             <p>نکسوس بر مبنای مهارت خالص، کار تیمی دقیق و فضای به دور از حاشیه پایه‌گذاری شده است. ما به دنبال آمار عددی نیستیم؛ هدف ما گردهمایی پلیرهایی است که به اصول بازی جوانمردانه، احترام متقابل و رشد مهارتی پایبند هستند.</p>
+            <p style="margin-bottom: 6px;">فرمت تگ رسمی اعضای نکسوس:</p>
+            <div><span class="tag-badge">❖ 𝐍𝐗𝐒 ┃ [Name]</span></div>
+        </section>
+
+        <!-- کانال رسمی بله -->
+        <section class="card">
+            <h2>📢 کانال رسمی نکسوس در بله</h2>
+            <p>تمامی اطلاعیه‌ها، تقویم کاستوم‌ها، کانفیگ‌ها و اخبار رسمی در کانال نکسوس در پیام‌رسان بله منتشر می‌شود.</p>
+            <a href="https://ble.ir/nexus_official" target="_blank" class="bale-btn">عضویت در کانال بله (ble.ir/nexus_official)</a>
+        </section>
+
+        <!-- کادر مدیریت -->
+        <section class="card">
+            <h2>👑 کادر مدیریت و مسئولین نکسوس</h2>
+            <p>جهت هرگونه هماهنگی، تست ورودی یا پشتیبانی می‌توانید مستقیماً در بله با کادر مدیریت در ارتباط باشید:</p>
             
-            <div class="tag-banner">
-                <div style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 6px;">فرمت تگ رسمی اعضای نکسوس:</div>
-                <code>❖ 𝐍𝐗𝐒 ┃ [Name]</code>
-            </div>
-        </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-role">FOUNDER & LEADER</div>
+                    <div class="team-name">@Im_himora</div>
+                    <a href="https://ble.ir/Im_himora" target="_blank" class="team-link">پیام در بله</a>
+                </div>
 
-        <!-- Community Section -->
-        <section id="community">
-            <div class="channel-card">
-                <h3>📢 کانال رسمی نکسوس در بله</h3>
-                <p>تمامی اطلاعیه‌ها، تقویم کاستوم‌ها، کانفیگ‌ها و اخبار رسمی در کانال نکسوس در پیام‌رسان بله منتشر می‌شود.</p>
-                <a href="http://ble.ir/nexus_official" target="_blank" class="btn-bale">
-                    عضویت در کانال بله: ble.ir/nexus_official
-                </a>
-            </div>
+                <div class="team-card">
+                    <div class="team-role">MANAGER & CO-OWNER</div>
+                    <div class="team-name">@Modak</div>
+                    <a href="https://ble.ir/Modak" target="_blank" class="team-link">پیام در بله</a>
+                </div>
 
-            <div class="card">
-                <h2>👑 کادر مدیریت و مسئولین نکسوس</h2>
-                <p>جهت هرگونه هماهنگی، تست ورودی یا پشتیبانی می‌توانید مستقیماً در بله با کادر مدیریت در ارتباط باشید:</p>
-                
-                <div class="leaders-grid">
-                    <div class="leader-card">
-                        <div class="leader-role">FOUNDER & LEADER</div>
-                        <div class="leader-name">@Im_himora</div>
-                        <a href="http://ble.ir/Im_himora" target="_blank" class="leader-link">پیام در بله</a>
-                    </div>
-
-                    <div class="leader-card">
-                        <div class="leader-role">MANAGER & CO-OWNER</div>
-                        <div class="leader-name">@Modak</div>
-                        <a href="http://ble.ir/Modak" target="_blank" class="leader-link">پیام در بله</a>
-                    </div>
-
-                    <div class="leader-card">
-                        <div class="leader-role">TESTER & CO-OWNER</div>
-                        <div class="leader-name">@amirldytuiop</div>
-                        <a href="http://ble.ir/amirldytuiop" target="_blank" class="leader-link">پیام برای تست</a>
-                    </div>
+                <div class="team-card">
+                    <div class="team-role">TESTER & CO-OWNER</div>
+                    <div class="team-name">@amirldytuiop</div>
+                    <a href="https://ble.ir/amirldytuiop" target="_blank" class="team-link">پیام برای تست</a>
                 </div>
             </div>
         </section>
@@ -306,8 +224,7 @@
     </main>
 
     <footer>
-        <p>❖ 𝐍𝐗𝐒 ┃ Quality Over Quantity ❖</p>
-        <p>© 2026 NEXUS Community | Official Network</p>
+        <p>© 2026 NEXUS Network — All Rights Reserved</p>
     </footer>
 
 </body>
