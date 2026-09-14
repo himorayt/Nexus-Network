@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS | The Codex</title>
+    <title>NEXUS | The Codex & Rules</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css" rel="stylesheet">
     <style>
         :root {
             --primary: #00f2fe;
             --danger: #ff3366;
+            --bale: #00c853;
             --bg: #050505;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
@@ -19,8 +20,8 @@
         body {
             background-color: var(--bg);
             background-image: 
-                radial-gradient(circle at 15% 20%, rgba(255, 51, 102, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(0, 242, 254, 0.06) 0%, transparent 40%);
+                radial-gradient(circle at 15% 20%, rgba(255, 51, 102, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(0, 242, 254, 0.07) 0%, transparent 45%);
             color: #d1d5db;
             font-family: 'Vazirmatn', sans-serif;
             margin: 0;
@@ -43,7 +44,7 @@
         nav a {
             color: #9ca3af;
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0 18px;
             font-weight: 600;
             transition: 0.3s;
             font-size: 0.95rem;
@@ -57,7 +58,7 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 70px 20px 30px;
+            padding: 75px 20px 30px;
         }
 
         .badge {
@@ -74,24 +75,25 @@
         }
 
         .header h1 {
-            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
             margin: 0;
-            background: linear-gradient(135deg, #fff 30%, var(--danger) 100%);
+            background: linear-gradient(135deg, #fff 35%, var(--danger) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            font-weight: 900;
         }
 
         .header p {
             color: #9ca3af;
             font-size: 1.05rem;
-            max-width: 650px;
+            max-width: 680px;
             margin: 15px auto 0;
         }
 
         /* Container */
         .container {
-            max-width: 900px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 20px 20px 80px;
         }
@@ -101,7 +103,7 @@
             background: var(--glass);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 28px;
+            padding: 26px;
             margin-bottom: 22px;
             backdrop-filter: blur(12px);
             transition: transform 0.3s ease, border-color 0.3s ease;
@@ -117,21 +119,21 @@
             width: 4px;
             height: 100%;
             background: var(--danger);
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         .rule-card:hover {
             transform: translateX(-4px);
-            border-color: rgba(255, 51, 102, 0.3);
+            border-color: rgba(255, 51, 102, 0.35);
         }
 
         .rule-card h3 {
             margin: 0 0 12px;
-            font-size: 1.25rem;
+            font-size: 1.22rem;
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .rule-num {
@@ -145,11 +147,12 @@
             justify-content: center;
             font-size: 0.85rem;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .rule-card ul {
             margin: 0;
-            padding-right: 20px;
+            padding-right: 25px;
             color: #d1d5db;
         }
 
@@ -157,32 +160,75 @@
             margin-bottom: 8px;
         }
 
-        /* Leadership Notice */
+        /* Leadership Notice & Bale Connect */
         .authority-box {
-            margin-top: 40px;
+            margin-top: 45px;
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(255, 51, 102, 0.05));
             border: 1px solid rgba(0, 242, 254, 0.2);
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px 20px;
             text-align: center;
         }
 
         .authority-box h4 {
             color: var(--primary);
             margin: 0 0 10px;
-            font-size: 1.15rem;
+            font-size: 1.3rem;
         }
 
         .authority-box p {
-            margin: 0;
+            margin: 0 0 20px;
             color: #9ca3af;
             font-size: 0.95rem;
+        }
+
+        .staff-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .staff-link-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .staff-link-btn:hover {
+            border-color: var(--primary);
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary);
+        }
+
+        .bale-channel-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: var(--bale);
+            color: #000;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .bale-channel-btn:hover {
+            background: #00e676;
+            transform: scale(1.03);
         }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #555;
+            color: #666;
             font-size: 0.85rem;
             border-top: 1px solid var(--border);
         }
@@ -193,13 +239,13 @@
     <nav>
         <a href="index.html">خانه</a>
         <a href="rules.html" class="active">قوانین</a>
-        <a href="events.html">رویدادها</a>
+        <a href="events.html">رویدادها و تست</a>
     </nav>
 
     <header class="header">
         <span class="badge">❖ NEXUS CODEX ❖</span>
-        <h1>قوانین و پروتکل‌های انضباطی</h1>
-        <p>برای حفظ پرستیژ، احترام و کیفیت کامیونیتی نکسوس (NXS)، پایبندی به تمامی بندهای زیر برای کلیه اعضا الزامی است.</p>
+        <h1>مرام‌نامه و قوانین رسمی نکسوس</h1>
+        <p>عضویت در نکسوس (NXS) نیازمند انضباط و احترام متقابل است. کلیه اعضا ملزم به رعایت کامل بندهای زیر می‌باشند.</p>
     </header>
 
     <main class="container">
@@ -207,59 +253,61 @@
         <div class="rule-card">
             <h3><span class="rule-num">۱</span> خط قرمزهای اخلاقی و رفتاری</h3>
             <ul>
-                <li>هرگونه توهین، الفاظ رکیک، تمسخر، نژادپرستی و ایجاد فضای توکسیک (Toxic) اکیداً ممنوع است.</li>
-                <li>ورود به مباحث سیاسی، مذهبی، قومیتی و انتشار محتوای نامناسب (NSFW) بدون اخطار قبلی منجر به <strong>بن دائم</strong> خواهد شد.</li>
+                <li>هرگونه توهین، به‌کار بردن الفاظ نامناسب، تمسخر و ایجاد فضای توکسیک (Toxic) ممنوع است.</li>
+                <li>ورود به مباحث تفرقه‌افکن سیاسی، مذهبی، قومیتی یا ارسال محتوای غیراخلاقی (NSFW) موجب بن بدون اخطار می‌شود.</li>
             </ul>
         </div>
 
         <div class="rule-card">
-            <h3><span class="rule-num">۲</span> حریم خصوصی و امنیت اعضا</h3>
+            <h3><span class="rule-num">۲</span> امنیت و حریم شخصی در بله</h3>
             <ul>
-                <li>ایجاد هرگونه مزاحمت در پی‌وی (PV) اعضا یا کادر مدیریت مطلقاً ممنوع است و بلافاصله باعث حذف فرد خاطی می‌شود.</li>
-                <li>هر نوع تبلیغات، فوروارد لینک‌های ناشناس، تبادل بی‌اجازه و ارسال لینک گروه‌های متفرقه نقض امنیتی محسوب می‌گردد.</li>
+                <li>ایجاد هرگونه مزاحمت در پی‌وی (PV) اعضای کلن یا کادر مدیریت ممنوع بوده و بلافاصله اکانت فرد بلاک و بن می‌گردد.</li>
+                <li>هر نوع تبلیغات، ارسال لینک کانال‌های متفرقه و دعوت غیرمجاز خلاف مقررات نکسوس است.</li>
             </ul>
         </div>
 
         <div class="rule-card">
-            <h3><span class="rule-num">۳</span> بازی جوانمردانه (Fair Play)</h3>
+            <h3><span class="rule-num">۳</span> بازی جوانمردانه (Fair Play) در ماینکرفت</h3>
             <ul>
-                <li>در تمامی تست‌ها، کاستوم‌ها و مسابقات ماینکرفت، استفاده از هرگونه چیت، اتوکلیکر غیرمجاز، کلاینت‌های دستکاری‌شده و باگ‌ابیوز ممنوع است.</li>
-                <li>نکسوس بر پایه مهارت خالص و تمرین واقعی بنا شده و با متخلفین بدون تساهل برخورد می‌شود.</li>
+                <li>استفاده از هرگونه چیت، اتوکلیکر غیرمجاز، ماکرو، رجیستری دستکاری‌شده و باگ‌ابیوز در سرورهای تیرکس و دونات اکیداً ممنوع است.</li>
+                <li>تمامی تست‌ها و بازی‌های تیمی فقط بر پایه مهارت خالص و تمرین برگزار می‌شوند.</li>
             </ul>
         </div>
 
         <div class="rule-card">
-            <h3><span class="rule-num">۴</span> انضباط چت و گروه‌ها</h3>
+            <h3><span class="rule-num">۴</span> نظم کانال و رسانه‌های نکسوس</h3>
             <ul>
-                <li>اسپم، فلود، منشن و تگ کردن بی‌مورد ادمین‌ها و ایجاد حواشی بی‌مورد ممنوع است.</li>
-                <li>محیط چت صرفاً مختص هماهنگی‌های گیم‌پلی، اشتراک‌گذاری کانفیگ و ریسورس‌پک، و ارتباط سالم گیمینگ است.</li>
+                <li>اسپم، کامنت‌های بی‌ربط و منشن کردن بی‌مورد مدیران ممنوع است.</li>
+                <li>ارتباطات صرفاً باید حول محور هماهنگی اسکواد، بدوارز، ریسورس‌پک‌ها و گیم‌پلی باشد.</li>
             </ul>
         </div>
 
         <div class="rule-card">
-            <h3><span class="rule-num">۵</span> کادر مدیریت و ساختار تگ</h3>
+            <h3><span class="rule-num">۵</span> هویت رسمی و تگ نکسوس</h3>
             <ul>
-                <li>اعضای رسمی تاییدشده موظف به حفظ فرمت تگ رسمی <code>❖ 𝐍𝐗𝐒 ┃ [Name]</code> در رویدادها هستند.</li>
-                <li>تصمیم‌گیری نهایی درباره اخطارها، اعتراض‌ها و حل اختلافات تماماً بر عهده Founder و Co-Founder خواهد بود.</li>
+                <li>پلیرهای تاییدشده موظف به رعایت فرمت تگ رسمی <code>❖ 𝐍𝐗𝐒 ┃ [Name]</code> هستند.</li>
+                <li>تصمیم‌گیری در مورد گزارش تخلف و تایید تست بر عهده لیدرها و مدیریت رسمی است.</li>
             </ul>
         </div>
 
         <div class="authority-box">
-            <h4>⚔️ نظارت و مدیریت کلان</h4>
-            <p>لیدرها و کنترلرها: <strong>@Im_himora</strong> | <strong>@Modak</strong> | <strong>@amirldytuiop</strong></p>
-        </div>
-
-    </main>
-
-    <footer>
-        <p>ldytuiop</strong></p>
+            <h4>🛡️ نظارت، گزارش تخلف و مدیریت در بله</h4>
+            <p>در صورت مشاهده هرگونه تخلف از قوانین فوق، مستقیماً به کادر مدیریت در بله اطلاع دهید:</p>
+            <div class="staff-links">
+                <a href="http://ble.ir/Im_himora" target="_blank" class="staff-link-btn">لیدر: Im_himora@</a>
+                <a href="http://ble.ir/Modak" target="_blank" class="staff-link-btn">منیجر: Modak@</a>
+                <a href="http://ble.ir/amirldytuiop" target="_blank" class="staff-link-btn">تستر: amirldytuiop@</a>
+            </div>
+            <div>
+                <a href="http://ble.ir/nexus_official" target="_blank" class="bale-channel-btn">عضویت در کانال رسمی نکسوس در بله 📢</a>
+            </div>
         </div>
 
     </main>
 
     <footer>
         <p>❖ 𝐍𝐗𝐒 ┃ Quality Over Quantity ❖</p>
-        <p>© 2026 NEXUS Community</p>
+        <p>© 2026 NEXUS Network — All Rights Reserved</p>
     </footer>
 
 </body>
