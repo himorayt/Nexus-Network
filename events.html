@@ -1,5 +1,340 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | رویدادها و تست ورودی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --accent: #ff3366;
+            --bale: #00c853;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 20% 80%, rgba(255, 51, 102, 0.08) 0%, transparent 45%);
+            color: #d1d5db;
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Nav */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a.active, nav a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+        }
+
+        /* Hero / Header */
+        .header {
+            text-align: center;
+            padding: 75px 20px 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 20px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            margin: 0;
+            background: linear-gradient(135deg, #fff 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .header p {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 15px auto 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 20px 80px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: #fff;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Bento Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h3 {
+            margin: 0 0 12px;
+            color: #fff;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: #9ca3af;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Criteria List */
+        .steps-box {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(12px);
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .step-content h4 {
+            margin: 0 0 4px;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 0.92rem;
+        }
+
+        /* CTA / Test Action Box */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.12), rgba(0, 242, 254, 0.08));
+            border: 1px solid rgba(0, 200, 83, 0.4);
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 0 30px rgba(0, 200, 83, 0.1);
+        }
+
+        .cta-box h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 0 10px;
+        }
+
+        .cta-box p {
+            color: #a7f3d0;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #00c853;
+            color: #000;
+            text-decoration: none;
+            padding: 14px 34px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .contact-btn:hover {
+            background: #00e676;
+            transform: scale(1.04);
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">خانه</a>
+        <a href="rules.html">قوانین</a>
+        <a href="events.html" class="active">رویدادها و تست</a>
+    </nav>
+
+    <header class="header">
+        <span class="badge">❖ RECRUITMENT & EVENTS ❖</span>
+        <h1>رویدادها و فرآیند عضویت در نکسوس</h1>
+        <p>مسیر ورود به جمع بازیکنان برتر بدوارز و پی‌وی‌پی نکسوس (NXS)</p>
+    </header>
+
+    <main class="container">
+
+        <!-- رویدادهای پیش‌رو -->
+        <div class="section-title">
+            <span>🏆</span> برنامه‌ها و رویدادهای نکسوس
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>⚔️ مسابقات هفتگی بدوارز</h3>
+                <p>کاستوم‌های داخلی ۴ نفره و دوئل‌های تیمی در سرورهای معتبر (تیرکس ماین و دونات) با ثبت امتیازات اعضا.</p>
+            </div>
+            <div class="card">
+                <h3>🎯 تورنمنت‌های ۱v۱ PvP</h3>
+                <p>چالش‌های دوره‌ای برای ارزیابی رفلکس، W-Tap، بلاک‌پلیس و تسلط مکانیکال پلیرها با جوایز درون‌کامیونیتی.</p>
+            </div>
+            <div class="card">
+                <h3>🎙️ نایت‌های تمرینی و استراتژی</h3>
+                <p>جلسات بررسی ریپلی‌ها، اصلاح فست‌بریج و هماهنگی کمبو برای ارتقای سطح کلی کلن.</p>
+            </div>
+        </div>
+
+        <!-- مراحل و شرایط تست ورودی -->
+        <div class="section-title">
+            <span>📋</span> شرایط و مراحل ارزیابی تست ورودی
+        </div>
+
+        <div class="steps-box">
+            <div class="step-item">
+                <div class="step-num">۱</div>
+                <div class="step-content">
+                    <h4>تطابق اخلاقی و مطالعه قوانین</h4>
+                    <p>پیش از هر چیز، مطالعه کامل و پذیرش مرام‌نامه رسمی نکسوس در صفحه قوانین الزامی است.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-num">۲</div>
+                <div class="step-content">
+                    <h4>تست عملی دوئل (PvP Duel)</h4>
+                    <p>برگزاری مسابقه ۱v۱ با تستر رسمی کلن برای سنجش مهارت Aim، کمبو و واکنش در بازی.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-num">۳</div>
+                <div class="step-content">
+                    <h4>تست گیم‌پلی تیمی و بدوارز</h4>
+                    <p>یک مچ بدوارز تیمی جهت بررسی درک نقشه، دفاع، فست‌بریج و کار تیمی متقاضی.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-num">۴</div>
+                <div class="step-content">
+                    <h4>اعطای تگ رسمی ❖ 𝐍𝐗𝐒</h4>
+                    <p>پس از تایید تستر، نام کاربری شما در لیست اعضای رسمی ثبت شده و تگ کلن فعال می‌شود.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- باکس تماس با تستر در بله -->
         <div class="cta-box">
             <h3>آماده‌ای برای تست ورودی نکسوس؟</h3>
-            <p>برای هماهنگی ساعت تست و ارزیابی گیم‌پلی، به تستر رسمی پیام بده:</p>
-            <a href="http://ble.ir/amirldytuiop" target="_blank" class="contact-btn">پیام به تستر نکسوس در بله (@amirldytuiop)</a>
+            <p>برای هماهنگی ساعت تست و ارزیابی گیم‌پلی، مستقیماً به تستر رسمی در «بله» پیام بده:</p>
+            <a href="http://ble.ir/amirldytuiop" target="_blank" class="contact-btn">
+                پیام به تستر نکسوس در بله (amirldytuiop@) ❖
+            </a>
         </div>
+
+    </main>
+
+    <footer>
+        <p>❖ 𝐍𝐗𝐒 ┃ Quality Over Quantity ❖</p>
+        <p>© 2026 NEXUS Network — All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
