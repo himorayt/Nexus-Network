@@ -1,56 +1,520 @@
-function submitTicket(e) {
-    e.preventDefault();
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | مرکز پشتیبانی و تیکتینگ</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --accent: #ff3366;
+            --bale: #00c853;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --card-hover: rgba(0, 242, 254, 0.08);
+        }
 
-    const cat = document.getElementById('selectedCategory').value;
-    const ign = document.getElementById('ign').value;
-    const baleId = document.getElementById('baleId').value;
-    const message = document.getElementById('ticketMessage').value;
+        * { box-sizing: border-box; }
 
-    const code = "#NXS-" + Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('generatedCode').innerText = code;
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 20% 80%, rgba(255, 51, 102, 0.08) 0%, transparent 45%);
+            color: #d1d5db;
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
 
-    let targetUrl = "http://ble.ir/Modak";
-    let department = "منیجری و ادمین‌ها";
-    let catPersian = "پیشنهاد / ایده";
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
 
-    if (cat === 'test') {
-        targetUrl = "http://ble.ir/amirldytuiop";
-        department = "تستر رسمی نکسوس (@amirldytuiop)";
-        catPersian = "تست ورودی کلن";
-    } else if (cat === 'staff' || cat === 'complaint') {
-        targetUrl = "http://ble.ir/Im_himora";
-        department = "لیدر ارشد (@Im_himora)";
-        catPersian = cat === 'staff' ? "درخواست عضویت در تیم استف" : "شکایت و انتقاد";
-    } else if (cat === 'report') {
-        targetUrl = "http://ble.ir/Modak";
-        department = "کادر نظارت و منیجر (@Modak)";
-        catPersian = "گزارش تخلف بازیکن";
-    }
+        nav a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 16px;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
 
-    // تولید متن شکیل تیکت برای ارسال در بله
-    const ticketText = `❖ تیکت رسمی نکسوس ❖\n` +
-        `شناسه رهگیری: ${code}\n` +
-        `موضوع: ${catPersian}\n` +
-        `نام درون بازی (IGN): ${ign}\n` +
-        `آیدی بله: ${baleId}\n` +
-        `متن پیام: ${message}`;
+        nav a.active, nav a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+        }
 
-    // کپی خودکار در کلیپ‌بورد کاربر
-    navigator.clipboard.writeText(ticketText).then(() => {
-        alert("✅ مشخصات تیکت در کلیپ‌بورد کپی شد! در صفحه بله فقط Paste (چسباندن) کنید و بفرستید.");
-    });
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 50px 20px 20px;
+        }
 
-    document.getElementById('ticketSummary').innerHTML = `
-        <div><strong>دپارتمان:</strong> ${catPersian}</div>
-        <div><strong>نام کاربری:</strong> ${ign}</div>
-        <div><strong>آیدی ثبت‌کننده:</strong> ${baleId}</div>
-        <div><strong>کد رهگیری:</strong> ${code}</div>
-    `;
+        .badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 20px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
 
-    document.getElementById('targetNotice').innerText = `تیکت شما به ${department} متصل شد. روی دکمه زیر کلیک کنید و پیام کپی‌شده را ارسال کنید.`;
-    document.getElementById('baleLink').href = targetUrl;
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin: 0;
+            background: linear-gradient(135deg, #fff 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
 
-    document.getElementById('ticket-box').style.display = 'block';
-    document.getElementById('submitBtn').style.display = 'none';
-    document.getElementById('ticket-box').scrollIntoView({ behavior: 'smooth' });
-}
+        .header p {
+            color: #9ca3af;
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 12px auto 0;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px 20px 80px;
+        }
+
+        /* Category Selector Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .category-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .category-card:hover {
+            border-color: var(--primary);
+            background: var(--card-hover);
+            transform: translateY(-2px);
+        }
+
+        .category-card.active {
+            border-color: var(--primary);
+            background: rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            color: #fff;
+        }
+
+        .category-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .category-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* Form Card */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 35px 30px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+            background: rgba(0, 0, 0, 0.75);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), #0072ff);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+        }
+
+        /* Result Box */
+        #ticket-box {
+            display: none;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(255, 51, 102, 0.05));
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 25px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ticket-code {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.15);
+            border: 2px dashed var(--primary);
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 900;
+            padding: 10px 25px;
+            border-radius: 12px;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .ticket-summary {
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: right;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            line-height: 2;
+        }
+
+        .btn-bale {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--bale);
+            color: #000;
+            text-decoration: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-bale:hover {
+            background: #00e676;
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 200, 83, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">خانه</a>
+        <a href="rules.html">قوانین</a>
+        <a href="events.html">رویدادها</a>
+        <a href="tickets.html" class="active">سامانه تیکت</a>
+    </nav>
+
+    <header class="header">
+        <span class="badge">❖ NEXUS SUPPORT HUB ❖</span>
+        <h1>سامانه ثبت تیکت و درخواست‌ها</h1>
+        <p>موضوع مورد نظر خود را برای ثبت درخواست، تست، گزارش یا عضویت در کادر مدیریت انتخاب کنید.</p>
+    </header>
+
+    <main class="container">
+        
+        <!-- انتخاب دسته‌بندی موضوعی -->
+        <div class="category-grid">
+            <div class="category-card active" onclick="setCategory('test', this)">
+                <span class="category-icon">⚔️</span>
+                <span class="category-title">تست ورودی</span>
+            </div>
+            <div class="category-card" onclick="setCategory('staff', this)">
+                <span class="category-icon">🛡️</span>
+                <span class="category-title">درخواست استف</span>
+            </div>
+            <div class="category-card" onclick="setCategory('report', this)">
+                <span class="category-icon">🚨</span>
+                <span class="category-title">گزارش تخلف</span>
+            </div>
+            <div class="category-card" onclick="setCategory('idea', this)">
+                <span class="category-icon">💡</span>
+                <span class="category-title">ایده و پیشنهاد</span>
+            </div>
+            <div class="category-card" onclick="setCategory('complaint', this)">
+                <span class="category-icon">⚠️</span>
+                <span class="category-title">شکایت / انتقاد</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <form id="ticketForm" onsubmit="submitTicket(event)">
+
+                <input type="hidden" id="selectedCategory" value="test">
+
+                <!-- اطلاعات ثابت هویتی -->
+                <div class="form-group">
+                    <label for="ign">نام کاربری ماینکرفت (IGN):</label>
+                    <input type="text" id="ign" required placeholder="مثال: Player_NXS">
+                </div>
+
+                <div class="form-group">
+                    <label for="baleId">آیدی شما در پیام‌رسان بله (الزامی):</label>
+                    <input type="text" id="baleId" required placeholder="مثال: @username">
+                </div>
+
+                <!-- ۱. فیلدهای مخصوص تست ورودی -->
+                <div id="section-test">
+                    <div class="form-group">
+                        <label for="testAge">سن شما:</label>
+                        <input type="number" id="testAge" min="10" max="40" placeholder="مثال: 16">
+                    </div>
+                    <div class="form-group">
+                        <label for="testSkill">تخصص اصلی در گیم:</label>
+                        <select id="testSkill">
+                            <option value="Bedwars (Rusher/Defender)">بدوارز (Bedwars)</option>
+                            <option value="PvP Duel (1v1)">پی‌وی‌پی و دوئل (PvP)</option>
+                            <option value="Bridge / Fastplace">بریج و فست‌پلیس</option>
+                            <option value="All-Rounder">همه‌فن‌حریف</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="testServers">سرورهایی که فعال هستید:</label>
+                        <input type="text" id="testServers" placeholder="مثال: تیرکس ماین، هایپیکسل">
+                    </div>
+                </div>
+
+                <!-- ۲. فیلدهای مخصوص عضویت در استف -->
+                <div id="section-staff" style="display: none;">
+                    <div class="form-group">
+                        <label for="staffRole">سمت درخواستی در تیم استف:</label>
+                        <select id="staffRole">
+                            <option value="Moderator (ناظم چت و نظم)">مادریتور / ناظم (نظم سرور و گروه‌ها)</option>
+                            <option value="Tester (تستر ورودی بازیکنان)">تستر ممبر جدید</option>
+                            <option value="Event Organizer (برگزارکننده رویداد)">ایونت منیجر</option>
+                            <option value="Media / Content Creator">تولیدکننده محتوا و مدیا</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="staffExp">سابقه مدیریت یا استف بودن قبلی:</label>
+                        <textarea id="staffExp" rows="2" placeholder="نام کلن‌ها یا سرورهایی که قبلاً استف بودید..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="staffTime">تایم آنلاین در طول روز:</label>
+                        <input type="text" id="staffTime" placeholder="مثال: روزی ۳ الی ۵ ساعت">
+                    </div>
+                </div>
+
+                <!-- ۳. فیلدهای مخصوص گزارش تخلف -->
+                <div id="section-report" style="display: none;">
+                    <div class="form-group">
+                        <label for="reportTarget">آیدی / نام شخص متخلف:</label>
+                        <input type="text" id="reportTarget" placeholder="نام کاربری فرد خاطی">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportReason">نوع تخلف:</label>
+                        <select id="reportReason">
+                            <option value="استفاده از چیت یا ابزار نامتعارف">چیت / کلیکر غیرمجاز</option>
+                            <option value="بی‌احترامی و توهین ناموسی">بی‌احترامی و توهین</option>
+                            <option value="ترول و خرابکاری در ایونت یا گیم">ترول و خرابکاری</option>
+                            <option value="دور زدن قوانین نکسوس">دور زدن قوانین</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportProof">لینک مدرک (عکس یا ویدیو در صورت وجود):</label>
+                        <input type="url" id="reportProof" placeholder="https://aparat.com/... یا لینک آپلود سنتر">
+                    </div>
+                </div>
+
+                <!-- ۴. فیلدهای ایده و پیشنهاد -->
+                <div id="section-idea" style="display: none;">
+                    <div class="form-group">
+                        <label for="ideaTitle">عنوان پیشنهاد شما:</label>
+                        <input type="text" id="ideaTitle" placeholder="مثال: راه اندازی تورنمنت هفتگی بدوارز">
+                    </div>
+                </div>
+
+                <!-- ۵. فیلدهای شکایت / انتقاد -->
+                <div id="section-complaint" style="display: none;">
+                    <div class="form-group">
+                        <label for="complaintTarget">شکایت از کدام بخش یا کادر است؟</label>
+                        <input type="text" id="complaintTarget" placeholder="نام کادر یا بخش مورد نظر">
+                    </div>
+                </div>
+
+                <!-- متن اصلی توضیحات -->
+                <div class="form-group">
+                    <label for="ticketMessage">شرح کامل پیام / تیکت:</label>
+                    <textarea id="ticketMessage" rows="4" required placeholder="توضیحات تکمیلی خود را کامل بنویسید..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">⚡ ثبت تیکت و کپی مشخصات</button>
+            </form>
+
+            <!-- باکس تیکت نهایی -->
+            <div id="ticket-box">
+                <h3 style="color: #fff; margin: 0;">✅ تیکت شما با موفقیت صادر شد</h3>
+                <p style="color: #9ca3af; margin: 8px 0;">شناسه رسمی رهگیری تیکت:</p>
+                <div class="ticket-code" id="generatedCode">#NXS-0000</div>
+                
+                <div class="ticket-summary" id="ticketSummary"></div>
+
+                <p style="font-size: 0.9rem; color: #a7f3d0;" id="targetNotice">تیکت شما به دپارتمان مربوطه متصل شد.</p>
+                
+                <a href="#" id="baleLink" target="_blank" class="btn-bale">
+                    📩 ارسال تیکت در بله (Paste کنید)
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>❖ 𝐍𝐗𝐒 ┃ Quality Over Quantity ❖</p>
+        <p>© 2026 NEXUS Network — All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function setCategory(cat, element) {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('selectedCategory').value = cat;
+
+            document.getElementById('section-test').style.display = 'none';
+            document.getElementById('section-staff').style.display = 'none';
+            document.getElementById('section-report').style.display = 'none';
+            document.getElementById('section-idea').style.display = 'none';
+            document.getElementById('section-complaint').style.display = 'none';
+
+            const target = document.getElementById('section-' + cat);
+            if (target) {
+                target.style.display = 'block';
+            }
+        }
+
+        function submitTicket(e) {
+            e.preventDefault();
+
+            const cat = document.getElementById('selectedCategory').value;
+            const ign = document.getElementById('ign').value;
+            const baleId = document.getElementById('baleId').value;
+            const message = document.getElementById('ticketMessage').value;
+
+            const code = "#NXS-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('generatedCode').innerText = code;
+
+            let targetUrl = "http://ble.ir/Modak";
+            let department = "منیجری و ادمین‌ها";
+            let catPersian = "پیشنهاد / ایده";
+
+            if (cat === 'test') {
+                targetUrl = "http://ble.ir/amirldytuiop";
+                department = "تستر رسمی نکسوس (@amirldytuiop)";
+                catPersian = "تست ورودی کلن";
+            } else if (cat === 'staff' || cat === 'complaint') {
+                targetUrl = "http://ble.ir/Im_himora";
+                department = "لیدر ارشد (@Im_himora)";
+                catPersian = cat === 'staff' ? "درخواست عضویت در تیم استف" : "شکایت و انتقاد";
+            } else if (cat === 'report') {
+                targetUrl = "http://ble.ir/Modak";
+                department = "کادر نظارت و منیجر (@Modak)";
+                catPersian = "گزارش تخلف بازیکن";
+            }
+
+            const ticketText = "❖ تیکت رسمی نکسوس ❖\n" +
+                "شناسه رهگیری: " + code + "\n" +
+                "موضوع: " + catPersian + "\n" +
+                "نام درون بازی (IGN): " + ign + "\n" +
+                "آیدی بله: " + baleId + "\n" +
+                "متن پیام: " + message;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(ticketText).then(() => {
+                    alert("✅ مشخصات تیکت در کلیپ‌بورد کپی شد! در بله Paste (چسباندن) کنید.");
+                }).catch(() => {});
+            }
+
+            document.getElementById('ticketSummary').innerHTML = 
+                "<div><strong>دپارتمان:</strong> " + catPersian + "</div>" +
+                "<div><strong>نام کاربری:</strong> " + ign + "</div>" +
+                "<div><strong>آیدی ثبت‌کننده:</strong> " + baleId + "</div>" +
+                "<div><strong>کد رهگیری:</strong> " + code + "</div>";
+
+            document.getElementById('targetNotice').innerText = "تیکت شما به " + department + " متصل شد. روی دکمه زیر کلیک کرده و پیام را در بله ارسال کنید.";
+            document.getElementById('baleLink').href = targetUrl;
+
+            document.getElementById('ticket-box').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('ticket-box').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
